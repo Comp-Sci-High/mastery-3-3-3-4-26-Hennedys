@@ -7,21 +7,36 @@ const app = express();
  * Add Middleware to log incoming requests
  * It runs for every request before reaching the route handlers
  */
-
+app.use((req,res,next) => {
+console.log(`${req.method} request made to ${req.url}`)
+  next();  
+});
 /**
  * Add a route to /name that displays your name as plain text
  */
-
+app.get('/name', (req, res)=> {
+    res.send("Hennedys Guerra")
+});
 
 /**
  * Add a route to /about that displays a JSON object with details describing yourself
  */
-
+app.get('/about',(req,res)=>{
+    res.json({
+name: "Hennedys Guerra",
+careerIntrest: "Health and Sports Science",
+goal: "make 100k a year",
+status: "Happy"
+    })
+})
 
 /**
  * Add 404 Middleware 
  */
+app.use((req,res) => {
+res.status(404).send("404 - Page Not Found");
 
+})
 
 app.listen(3000, () => {
     console.log(`Server is running.`);
